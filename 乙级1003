@@ -1,0 +1,51 @@
+###简介
+优点傻，基本语法都忘了
+int count1,count2,count3=0;
+我还以为都赋值为0了
+
+###我的代码
+
+#include <stdio.h>
+char str[11][102];
+int main(void){
+    int n;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        scanf("%s",str[i]);
+    }
+    for(int i=0;i<n;i++){
+        int index = 0;
+        int count1,count2,count3;
+        count1=count2=count3=0;
+        while(str[i][index]=='A'){
+            index++;
+            count1++;
+        }
+        if(str[i][index]!='P'){
+            printf("NO\n");
+            continue;
+        }else{
+            index++;
+        }
+        while(str[i][index]=='A'){
+            index++;
+            count2++;
+        }
+        if(str[i][index]!='T'){
+            printf("NO\n");
+            continue;
+        }else{
+            index++;
+        }
+        while(str[i][index]=='A'){
+            index++;
+            count3++;
+        }
+        if(str[i][index]=='\0'&&count2>=1&&count1*count2==count3){
+            printf("YES\n");
+        }else{
+            printf("NO\n");
+        }
+    }
+    return 0;
+}
