@@ -1,0 +1,47 @@
+### 出现的问题
+输出格式，输出格式，输出格式
+
+### 我的代码
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+using namespace std;
+int hashmap[101];
+int mark[101];
+int main(){
+    int temp = 0;
+    int n = 0;
+    int point = 0;
+    memset(hashmap,0,101);
+    memset(mark,0,101);
+    scanf("%d",&n);
+    for(int i = 0;i < n;i++){
+        scanf("%d",&temp);
+        hashmap[temp]++;
+        mark[temp] = 1;
+        while(temp!=1){
+            if(temp%2){
+                temp = (temp*3+1)/2;
+            }else{
+                temp/=2;
+            }
+            if(temp <= 100)
+                hashmap[temp]++;
+        }
+    }
+    point = 100;
+    for(point;point > 1;point--){
+        if(mark[point]&&hashmap[point]==1){
+            printf("%d",point);
+            point--;
+            break;
+        }
+
+    }
+    for(point;point > 1;point--){
+        if(mark[point]&&hashmap[point]==1){
+            printf(" %d",point);
+        }
+    }
+    return 0;
+}
