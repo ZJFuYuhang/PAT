@@ -1,0 +1,100 @@
+### 出现的问题
+感觉自己傻到爆炸，分成两块移动就行，循环也就两个，复杂度O（n）
+非要找每个数通用的计算移动位置的公式，傻拉个吧唧
+### 没过的代码
+#include <iostream>
+#include <cstdio>
+using namespace std;
+int num[100001];
+int main()
+{
+    int N = 0;
+    int M = 0;
+    int medium = 0;
+    int group = 0;
+    int left = 0;
+
+    scanf("%d %d",&N,&M);
+    for(int i = 0; i < N; i++)
+    {
+        scanf("%d",num+i);
+    }
+    if(M == 0)
+    {
+        for(int i = 0; i < N-1; i++)
+        {
+            printf("%d ",num[i]);
+        }
+        printf("%d\n",num[N-1]);
+        return 0;
+    }
+    group = N/M;
+    left = N%M;
+    for(int i = 1; i <= M; i++)
+    {
+        medium = num[N-i];
+        for(int j = 1; j <= group-1; j++)
+        {
+            num[((N-i-j*M+M)%N+N)%N] = num[((N-i-j*M)%N+N)%N];
+            for(int i = 0; i < N-1; i++)
+            {
+                printf("%d ",num[i]);
+            }
+            printf("%d\n",num[N-1]);
+        }
+        if((N-i+M)%N<left)
+        {
+            num[(N-i+M)%N+M] = num[(N-i+M)%N];
+        }
+        num[(N-i+M)%N] = medium;
+        for(int i = 0; i < N-1; i++)
+        {
+            printf("%d ",num[i]);
+        }
+        printf("%d\n",num[N-1]);
+    }
+    for(int i = 0; i < N-1; i++)
+    {
+        printf("%d ",num[i]);
+    }
+    printf("%d\n",num[N-1]);
+    return 0;
+}
+
+### 过的代码
+#include<iostream>
+#include<list>
+#include<algorithm>
+
+using namespace std;
+
+int main()
+{
+    int N, M,t;
+
+    cin >> N >> M;
+
+    int *p = new int[N];
+
+    for (int i = 0; i < N; i++)
+        cin >> p[i];
+
+    M = M%N;//防止M大于N的情况出现，导致地址访问出错
+
+    //算法关键
+    reverse(p, p +N- M);
+    reverse(p + N - M, p + N);
+    reverse(p, p + N);
+
+    for (int i = 0; i < N; i++)
+    {
+        if (i == 0)
+            cout << p[0];
+        else
+            cout << " " << p[i];
+    }
+
+    delete[] p;
+
+    return 0;
+}
